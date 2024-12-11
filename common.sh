@@ -1,5 +1,6 @@
 dir_path=$(pwd)
 log_file=/tmp/roboshop.log
+rm -f $log_file
 
 
 SYSTEMD_SETUP() {
