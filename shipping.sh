@@ -3,15 +3,17 @@ app_name=shipping
 
 JAVA
 
+echo Install MySQL
 dnf install mysql -y &>>$log_file
 Status_Print $?
 
-mysql -h mysql-dev.azdevopsb82.online -uroot -pRoboShop@1 < /app/db/schema.sql &>>$log_file
-Status_Print $?
 
-mysql -h mysql-dev.azdevopsb82.online -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$log_file
-Status_Print $?
+for file in schema app-user master-data; do
 
-mysql -h mysql-dev.azdevopsb82.online -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$log_file
-Status_Print $?
+  echo Load $file
+  mysql -h mysql-dev.azdevopsb82.online -uroot -pRoboShop@1 < /app/db/$file.sql &>>$log_file
+  Status_Print $?
+
+done
+
 
