@@ -75,20 +75,30 @@ NODEJS() {
 }
 
 JAVA() {
-  dnf install maven -y
+  echo Install Maven
+  dnf install maven -y &>>$log_file
+  Status_Print $?
 
   APP_PREREQ
-  mvn clean package
-  mv target/$app_name-1.0.jar $app_name.jar
+
+  echo Install Maven Dependencies
+  mvn clean package &>>$log_file
+  mv target/$app_name-1.0.jar $app_name.jar &>>$log_file
+  Status_Print $?
 
   SYSTEMD_SETUP
 }
 
 PYTHON() {
-  dnf install python3 gcc python3-devel -y
+  echo Install Python
+  dnf install python3 gcc python3-devel -y &>>$log_file
+  Status_Print $?
 
   APP_PREREQ
-  pip3 install -r requirements.txt
+
+  echo Install Python Dependencies
+  pip3 install -r requirements.txt &>>$log_file
+  Status_Print $?
 
   SYSTEMD_SETUP
 }
