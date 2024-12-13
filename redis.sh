@@ -1,3 +1,5 @@
+source ./common.sh
+
 echo Disable default redis
 dnf module disable redis -y &>>$log_file
 Status_Print $?
